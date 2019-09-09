@@ -16,6 +16,7 @@ function draw() {
   fill(redAmmount, 0, 225);
   noStroke();
   ellipse(mouseX, mouseY, 100, 100);
+  
   redAmmount += redChangeAmount;
 
   if (redAmmount >=255) {
