@@ -10,12 +10,13 @@
 
 let gameSetup;
 let characterSetup;
+let bulletSetup;
 let letters;
 let enemy; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  enemy = new Enemy(width/3 , height/2, 50, 100);
+  // enemy = new Enemy(width/3 , height/2, 50, 100);
   gameSetup = {
   };
 
@@ -24,8 +25,12 @@ function setup() {
     y: height/2,
     rectWidth: 50,
     rectHeight: 100,
-    bulletX: width/2, 
-    bulletSize: 20,
+  };
+
+  bulletSetup = {
+    x: width/2,
+    y: height/2,
+    size: 10,
   };
 
   letters = {
@@ -38,9 +43,9 @@ function setup() {
 
 function draw() {
   background(220);
-  enemy.display();
-  enemy.interect();
-  makeCharacter();
+  // enemy.display();
+  // enemy.interect();
+  // makeCharacter();
   makeBullet();
 }
 
@@ -62,30 +67,19 @@ function makeCharacter() {
 }
 
 function makeBullet() {
-  ellipse(characterSetup.bulletX, characterSetup.y, characterSetup.bulletSize);
-  if (keyIsPressed && keyCode === 32) {
-    characterSetup.bulletX -= 5;
-  }
+  let circleX = mouseX;
+  let circleY = mouseY;
+  fill(0);
+  stroke(255);
+  ellipse(bulletSetup.x, bulletSetup.y, bulletSetup.size, bulletSetup.size);
+  fill(255);
+  stroke(0);
+  ellipse(circleX, circleY, bulletSetup.size, bulletSetup.size);
+  let distance = dist(bulletSetup.x, bulletSetup.y, circleX, circleY);
+  if (mouseIsPressed) {
+    bulletSetup.x = circleX; 
+    bulletSetup.y = circleY;
+  } 
+
 }
 
-
-class Enemy {
-  constructor(tempX, tempY, tempWidth, tempHeight) {
-    this.x = tempX;
-    this.y = tempY;
-    this.width = tempWidth;
-    this.height = tempHeight;
-    this.collision = false;
-  }
-  display() {
-    rect(this.x, this.y, this.width, this.height);
-  }
-
-  interect() {
-    this.collision = collideRectCircle(characterSetup.bulletX, characterSetup.y, characterSetup.bulletSize, characterSetup.bulletSize, this.x, this.y, this.width, this.height);
-    if (this.collision === true) {
-      fill(0);
-      rect(this.x, this.y, this.width, this.height);
-    }
-  }  
-}
