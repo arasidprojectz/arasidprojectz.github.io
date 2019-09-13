@@ -17,6 +17,7 @@ let enemy;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // enemy = new Enemy(width/3 , height/2, 50, 100);
+  
   gameSetup = {
   };
 
@@ -45,12 +46,13 @@ function draw() {
   background(220);
   // enemy.display();
   // enemy.interect();
-  // makeCharacter();
+  makeCharacter();
   makeBullet();
 }
 
 function makeCharacter() {
   fill(255);
+  rectMode(CENTER);
   rect(characterSetup.x, characterSetup.y, characterSetup.rectWidth, characterSetup.rectHeight);
   if (keyIsPressed && keyCode === RIGHT_ARROW || keyIsPressed && keyCode === letters.d) {
     characterSetup.x += 1;
@@ -67,19 +69,9 @@ function makeCharacter() {
 }
 
 function makeBullet() {
-  let circleX = mouseX;
-  let circleY = mouseY;
-  fill(0);
-  stroke(255);
   ellipse(bulletSetup.x, bulletSetup.y, bulletSetup.size, bulletSetup.size);
-  fill(255);
-  stroke(0);
-  ellipse(circleX, circleY, bulletSetup.size, bulletSetup.size);
-  let distance = dist(bulletSetup.x, bulletSetup.y, circleX, circleY);
   if (mouseIsPressed) {
-    bulletSetup.x = circleX; 
-    bulletSetup.y = circleY;
-  } 
-
+    bulletSetup.x += width;
+  }
 }
 
