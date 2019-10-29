@@ -13,13 +13,14 @@ function draw() {
 }
 
 function displayGrid(theGrid) {
-  // assumes the grib is a square
-  for (let y=0; y<theGrid[0].length; y++) {
-    for (let x=0; x<theGrid[0].length; x++) {
+  for (let y=0; y<theGrid.length; y++) {
+    for (let x=0; x<theGrid.length; x++) {
       if (theGrid[x][y] === 0) {
+        stroke(0);
         fill(255);
       }
       else {
+        stroke(255);
         fill(0);
       }
       let cellSize = width/theGrid[0].length;
